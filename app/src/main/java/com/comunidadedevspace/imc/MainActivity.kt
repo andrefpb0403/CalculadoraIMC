@@ -1,6 +1,7 @@
 package com.comunidadedevspace.imc
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -22,10 +23,38 @@ class MainActivity : AppCompatActivity() {
         val calcular = findViewById<Button>(R.id.btn_calcular)
 
         calcular.setOnClickListener {
-            val peso = peso.text
-            val altura = altura.text
+            val peso: Float = peso.text.toString().toFloat()
+            val altura: Float = altura.text.toString().toFloat()
 
-            println("Seu peso e sua altura são: $peso e $altura")
+            val resultado = peso / (altura * altura)
+            println("Seu IMC é de: $resultado")
+
+            val telaResultado = Intent(this, ResultadoActivity::class.java)
+            val intent = Intent(this, ResultadoActivity::class.java)
+            startActivity(intent)
+
+            /*
+            * MENO QUE 18,5 MAGREZA
+            * ENTRE 18,5 E 24,9 NORMAL
+            * ENTRE 25,0 E 29,9 SOBREPESO I
+            * ENTRE 30,0 E 39,9 OBESIDADE II
+            * MAIOR QUE 40,0    OBESIDADE GRAVE
+             * */
+
+            if (resultado < 18.5) {
+                println("Você está abaixo do peso")
+            } else if (resultado in 18.5..24.9) {
+                println("Você está no peso normal")
+            } else if (resultado in 25.0..29.9) {
+                println("Você está com sobrepeso")
+            } else if (resultado in 30.0..39.9) {
+                println("Você está com obesidade")
+            } else {
+                println("Você está com obesidade grave")
+            }
         }
+
+
+
     }
 }
