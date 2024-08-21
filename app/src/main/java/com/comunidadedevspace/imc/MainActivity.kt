@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
@@ -20,40 +21,56 @@ class MainActivity : AppCompatActivity() {
 
         val peso = findViewById<TextInputEditText>(R.id.edt_peso)
         val altura = findViewById<TextInputEditText>(R.id.edt_altura)
+
+
         val calcular = findViewById<Button>(R.id.btn_calcular)
 
         calcular.setOnClickListener {
-            val peso: Float = peso.text.toString().toFloat()
-            val altura: Float = altura.text.toString().toFloat()
 
-            val resultado = peso / (altura * altura)
-            println("Seu IMC é de: $resultado")
+            val pesoStr: String = peso.text.toString()
+            val alturaStr: String = altura.text.toString()
 
-            val telaResultado = Intent(this, ResultadoActivity::class.java)
-            val intent = Intent(this, ResultadoActivity::class.java)
-            startActivity(intent)
-
-            /*
-            * MENO QUE 18,5 MAGREZA
-            * ENTRE 18,5 E 24,9 NORMAL
-            * ENTRE 25,0 E 29,9 SOBREPESO I
-            * ENTRE 30,0 E 39,9 OBESIDADE II
-            * MAIOR QUE 40,0    OBESIDADE GRAVE
-             * */
-
-            if (resultado < 18.5) {
-                println("Você está abaixo do peso")
-            } else if (resultado in 18.5..24.9) {
-                println("Você está no peso normal")
-            } else if (resultado in 25.0..29.9) {
-                println("Você está com sobrepeso")
-            } else if (resultado in 30.0..39.9) {
-                println("Você está com obesidade")
+            if (pesoStr == "" || alturaStr == "") {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                println("Você está com obesidade grave")
-            }
-        }
 
+                val peso = pesoStr.toFloat()
+                val altura = alturaStr.toFloat()
+
+                val resultado = peso / (altura * altura)
+                println("Seu IMC é de: $resultado")
+
+                 /*
+                 * MENO QUE 18,5 MAGREZA
+                 * ENTRE 18,5 E 24,9 NORMAL
+                 * ENTRE 25,0 E 29,9 SOBREPESO I
+                 * ENTRE 30,0 E 39,9 OBESIDADE II
+                 * MAIOR QUE 40,0    OBESIDADE GRAVE
+                 * */
+
+                if (resultado < 18.5) {
+                    println("Você está abaixo do peso")
+                } else if (resultado in 18.5..24.9) {
+                    println("Você está no peso normal")
+                } else if (resultado in 25.0..29.9) {
+                    println("Você está com sobrepeso")
+                } else if (resultado in 30.0..39.9) {
+                    println("Você está com obesidade")
+                } else {
+                    println("Você está com obesidade grave")
+                }
+
+                val telaResultado = Intent(this, ResultadoActivity::class.java)
+                val intent = Intent(this, ResultadoActivity::class.java)
+                startActivity(intent)
+            }
+
+
+
+
+
+        }
 
 
     }
