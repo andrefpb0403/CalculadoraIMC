@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 //Pensando na intent como um pacote que vai ser entregue, e esse pacote tem uma senha (chave) é recomendados
 //que essa chave seja guardada em algum lugar, a sintaxe abaixo serve para isso. Para guardar a chave dentro de uma variável
 const val CHAVE_RESULTADO_IMC = "AcitivityResultado.CHAVE_IMC"
-const val CHAVE_RESULTADO_CLASSIFICACAO = "AcitivityResultado.CHAVE_IMC"
 
 class ResultadoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
