@@ -40,19 +40,18 @@ class ResultadoActivity : AppCompatActivity() {
         * */
 
         //Sintaxe abaixo é utilizada para enquadrar o resultado do IMC e mostrar ao usuário.
-        val classificacao: String = if (resultado <= 18.5) {
-            "Você está abaixo do peso"
-        } else if (resultado in 18.5..24.9) {
-            "Você está no peso normal"
-        } else if (resultado in 25.0..29.9) {
-            "Você está com sobrepeso"
-        } else if (resultado in 30.0..39.9) {
-            "Você está com obesidade"
-        } else {
-            "Você está com obesidade grave"
+        val (classificacao, color) = when{
+            resultado in 0f..18.5f -> Pair("MAGREZA", R.color.magreza)
+            resultado in 18.5f..24.9f -> Pair("NORMAL", R.color.normal)
+            resultado in 25.0f..29.9f -> Pair("SOBREPESO", R.color.sobrepeso)
+            resultado in 30.0f..39.9f -> Pair("OBESIDADE", R.color.obesidade1)
+            resultado >= 40.0f -> Pair("OBESIDADE GRAVE", R.color.obesidadegrave)
+            else -> Pair("INVALIDO", R.color.white)
         }
 
+
         classificacaoImc.text = classificacao
+        classificacaoImc.setTextColor(getColor(color))
 
     }
 }
